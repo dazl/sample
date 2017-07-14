@@ -1,0 +1,31 @@
+#cloud-config
+#
+package_upgrade: true
+packages:
+ - aptdaemon
+ - git
+ - python-pip
+ - python-software-properties
+ - apt-transport-https
+ - ca-certificates
+runcmd:
+ - pip install -U pip
+ - pip install awscli
+ - 'curl -sL "https://deb.nodesource.com/setup_6.x" | /bin/bash -'
+ - yes | aptdcon --hide-terminal --refresh
+ - yes | aptdcon --hide-terminal --install "nodejs"
+#
+users:
+  - default
+  - name: dazl
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCb8oGizOh1m4zUJHS2xwU/aOfLEuI24/B0zhS9p4LxQGnK2m6jV/H0C0lRXX/i1Uye5T2ZRlLpcxaBNk+qzK7DlqOrLkpXgyI+alVL6K/CZ0+QYpLO/8ftbzCsUE6eDBZik6ygrhfFtMKNUOx4GG9sFNvI6XTMWrh75uoPuxTV4lzJmxSqJiBxIzONZ+fUhwlTcbkxW0u+MKpTM9ERaRrD99f9CfdbY1y9fT2/Deu7CdibG3oX6yRltpuASDVZvqtkjV8uO5ycWsc2CIY5jrgUAEEleJuoBCgzb+bchydvyQhspy0BS0OOAEtSb2HrvPRyZaXglTIyf5/Wt4hnGSvXAOft9yOZD2xdXH+vsEotMNhFrUqEUkyDOWv39uvfkroAokPpThLET0MLK2fmQYIyL3F4kZsvi4gP8vDGDDjjQA+H+GkjGJW1gp7yEQMTSpVDY3S/hWlqAJKFTDAOiJUMiLwiNNSHcTH/PxgxlJQr8qEhclcKmXi1vfBren01TbQW6YKz7Lu6Ejd4gOJnkTJlHojrZzLMsQdsZU9vl66EDpfllALDeAOdZHGDSsmkCVvMbEvXZC6jZyKIdqTVSaCWiPdXGpX3BU1vqfopVHwzYT1Ex921OvFnD2NrcqGWMNYMfqwGzqYbnGOYwK/VDKcYUuOK+QaNmYVqAnQbQiuO2w== dazl@dazl.ca
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: admin,sudo
+    shell: /bin/bash
+  - name: myprojectuser-1
+    ssh-authorized-keys:
+      - myprojectuser-1-ssh-rsa
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: admin,sudo
+    shell: /bin/bash
